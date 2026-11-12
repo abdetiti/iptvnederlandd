@@ -7,6 +7,7 @@ import { Pricing } from '../../components/Pricing';
 import { Accordion } from '../../components/Accordion';
 import { Section, WaButton, gutter } from '../../components/Section';
 import { Reveal } from '../../components/Reveal';
+import { Reviews } from '../../components/Reviews';
 import { JsonLd, faqSchema } from '../../components/JsonLd';
 import { BUY_FAQ } from '../../data/faq';
 import { PAYMENT_LOGOS } from '../../data/media';
@@ -88,7 +89,11 @@ export default function Page() {
         </div>
       </Section>
 
-      <Section title="Vragen over IPTV kopen" className="pt-0 sm:pt-0">
+      <Section tone="white" kicker="Klanten" title="Echte gesprekken met klanten" intro="Zo gaat het in WhatsApp: vragen, hulp bij het instellen en kijken.">
+        <Reviews />
+      </Section>
+
+      <Section title="Vragen over IPTV kopen">
         <div className="max-w-3xl space-y-6">
           <Accordion items={BUY_FAQ} />
           <Link href="/goed-iptv/" className="link inline-flex items-center gap-2 text-[17px]">Waar herken je goed IPTV aan? <ArrowRight className="w-4 h-4" /></Link>

@@ -1,15 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react';
-import { ArrowRight, Check, Tv, Smartphone, Monitor, Tablet, Cast, Box } from 'lucide-react';
+import { ArrowRight, Check, Tv, Smartphone, Monitor, Tablet, Cast, Box, ShieldCheck, Zap, MessageCircle, Wrench } from 'lucide-react';
 import { Hero, SignalBadge } from '../components/home/Hero';
 import { LogoMarquee } from '../components/LogoMarquee';
+import { PosterRail } from '../components/PosterRail';
+import { Reviews } from '../components/Reviews';
 import { Pricing } from '../components/Pricing';
 import { Accordion } from '../components/Accordion';
 import { Section, WaButton, gutter } from '../components/Section';
 import { Reveal, CountUp } from '../components/Reveal';
 import { JsonLd, faqSchema } from '../components/JsonLd';
 import { HOME_FAQ } from '../data/faq';
+import { FILMS, SPORT, PAYMENT_LOGOS, ILLUSTRATION_NOTE } from '../data/media';
 import { BOX, BOX_LINK } from '../data/box';
 import { orderLink, PRICES, PROMO } from '../lib/pricing';
 import { SITE, BRAND, WA_HELLO } from '../lib/site';
@@ -41,6 +44,13 @@ const GOOD = [
   { t: 'Werkt op je eigen apparaten', d: 'Smart TV, Android TV, Fire TV Stick, telefoon, tablet en computer.' },
   { t: 'Een programmagids', d: 'Met de EPG zie je wat er nu en straks op elke zender is.' },
   { t: 'Een krachtige server', d: 'Premium draait op een krachtigere server dan Standard, voor drukke avonden.' },
+];
+
+const TRUST = [
+  { i: ShieldCheck, t: 'Veilig betalen', d: 'Via een beveiligde betaallink. De site zelf neemt geen betalingen aan.' },
+  { i: Zap, t: 'Direct actief', d: 'Je gegevens komen meteen na je betaling binnen.' },
+  { i: MessageCircle, t: 'Een mens, 24/7', d: 'Je spreekt iemand in WhatsApp, in het Nederlands, dag en nacht.' },
+  { i: Wrench, t: 'Hulp bij installeren', d: 'Stuur een foto van je scherm, we lopen het samen door.' },
 ];
 
 const DEVICES = [
@@ -77,6 +87,16 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <Section id="films" kicker="Films en series" title="Altijd iets om te kijken" intro="140.000+ films en series met Standard, 200.000+ met Premium. Op aanvraag, wanneer jij wilt.">
+        <PosterRail items={FILMS} label="Films en series" />
+        <p className="mt-4 text-[14px] text-mist">{ILLUSTRATION_NOTE}</p>
+      </Section>
+
+      <Section id="sport" tone="night" kicker="Live sport" title="Voetbal, Formule 1 en meer" intro="Kijk live mee met de grote wedstrijden. Premium draait op een krachtigere server, voor drukke avonden.">
+        <PosterRail items={SPORT} label="Sport" night wide />
+        <p className="mt-4 text-[14px] text-moon">Afbeeldingen zijn ter illustratie.</p>
+      </Section>
 
       <Section id="prijzen" kicker="IPTV abonnement" title="Kies je pakket" intro={<>Twee pakketten, drie looptijden, 1 tot 4 schermen. Bij 12 maanden kijk je {PROMO.bonusMonths} maanden extra.</>} tone="white">
         <Pricing refPrefix="home" />
@@ -145,6 +165,23 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </Section>
+
+      <Section id="vertrouwen" tone="white" kicker="Vertrouwen" title="Waarom kijkers ons vertrouwen" intro="Geen beloftes in kleine letters: dit is hoe het echt gaat, en wat klanten ons in WhatsApp sturen.">
+        <ul className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {TRUST.map(({ i: Icon, t, d }, k) => (
+            <Reveal as="li" key={t} delay={k * 60} className="panel rounded-[24px] p-5">
+              <Icon className="w-7 h-7 text-volt" strokeWidth={1.8} />
+              <h3 className="mt-4 title text-[19px] text-ink">{t}</h3>
+              <p className="mt-1 text-[15px] text-mist">{d}</p>
+            </Reveal>
+          ))}
+        </ul>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {PAYMENT_LOGOS.map((p) => <span key={p.name} className="h-10 px-3 rounded-xl bg-white border border-line flex items-center"><img src={p.src} alt={p.name} className="h-5 w-auto" loading="lazy" /></span>)}
+        </div>
+        <h3 className="mt-14 mb-6 display text-[clamp(28px,7vw,44px)] text-ink">Echte gesprekken met klanten</h3>
+        <Reviews />
       </Section>
 
       <Section id="vragen" kicker="Vragen" title="Wat je wilt weten">

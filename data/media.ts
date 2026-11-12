@@ -23,9 +23,10 @@ export const PAYMENT_LOGOS = [
 ];
 
 // Logos officiels (fichiers du réseau, jamais redessinés). Netflix : logo officiel posé sur fond noir.
+// Netflix en 2e place : en 1re, il passait sous le fondu du bord gauche et on ne le voyait pas (remarque de l'utilisateur, 12/11).
 export const PLATFORMS: { src?: string; svg?: string; alt: string }[] = [
-  { svg: '/images/logos/plateformes/netflix-couleur.svg', alt: 'Netflix' },
   { src: '/images/plateformes/disney-plus.webp', alt: 'Disney+' },
+  { svg: '/images/logos/plateformes/netflix-couleur.svg', alt: 'Netflix' },
   { src: '/images/plateformes/hbo-max.webp', alt: 'HBO Max' },
   { src: '/images/plateformes/prime-video.webp', alt: 'Prime Video' },
   { src: '/images/plateformes/apple-tv-plus.webp', alt: 'Apple TV+' },
@@ -49,3 +50,34 @@ export const COMPETITIONS = [
 
 export const ILLUSTRATION_NOTE =
   'Afbeeldingen zijn ter illustratie; losse abonnementen op de getoonde streamingdiensten zijn niet inbegrepen.';
+
+// Carrousels films / séries et sport (12/11, demande de l'utilisateur : « comme d'hab »). Affiches ter illustratie.
+// ⚠️ Site Ads : si Google refuse l'annonce pour « marques / streaming », retirer ces deux carrousels de l'accueil.
+export type Poster = { src: string; alt: string; w: number; h: number; label?: string };
+const P = '/images/films';
+const S = '/images/sport-affiches';
+export const FILMS: Poster[] = [
+  { src: `${P}/poster-the-odyssey.webp`, w: 477, h: 755, alt: 'The Odyssey, poster ter illustratie' },
+  { src: `${P}/poster-spider-man-brand-new-day.webp`, w: 509, h: 755, alt: 'Spider-Man, poster ter illustratie' },
+  { src: `${P}/poster-loki.webp`, w: 405, h: 600, alt: 'Loki, poster ter illustratie' },
+  { src: `${P}/poster-outer-banks.webp`, w: 405, h: 600, alt: 'Outer Banks, poster ter illustratie' },
+  { src: `${P}/poster-venom-the-last-dance.webp`, w: 450, h: 600, alt: 'Venom: The Last Dance, poster ter illustratie' },
+  { src: `${P}/poster-the-mentalist.webp`, w: 535, h: 727, alt: 'The Mentalist, poster ter illustratie' },
+  { src: `${P}/poster-paw-patrol.webp`, w: 450, h: 600, alt: 'Paw Patrol, poster ter illustratie' },
+];
+export const SPORT: Poster[] = [
+  { src: `${S}/sport-champions-league-sterren.webp`, w: 700, h: 875, alt: 'Voetbalsterren, ter illustratie', label: 'Europees voetbal' },
+  { src: `${S}/sport-f1-coureurs.webp`, w: 700, h: 751, alt: 'Formule 1-coureurs, ter illustratie', label: 'Formule 1' },
+  { src: `${S}/sport-oranje.webp`, w: 700, h: 875, alt: 'Nederlands elftal, ter illustratie', label: 'Oranje' },
+  { src: `${S}/sport-messi-ronaldo.webp`, w: 700, h: 790, alt: 'Twee voetbalsterren, ter illustratie', label: 'Topvoetbal' },
+  { src: `${S}/sport-nba.webp`, w: 700, h: 875, alt: 'Basketbal, ter illustratie', label: 'Basketbal' },
+  { src: `${P}/poster-wk-2026.webp`, w: 600, h: 850, alt: 'WK 2026, poster ter illustratie', label: 'WK 2026' },
+];
+
+// Avis : vraies captures de conversations WhatsApp, noms et numéros déjà floutés (repris d'iptv8knederland).
+export const REVIEWS = [
+  { src: '/images/reviews/review-whatsapp-1.webp', label: 'Hulp bij films en series', quote: 'Hij doet het' },
+  { src: '/images/reviews/review-whatsapp-2.webp', label: 'Hulp bij het installeren', quote: 'Topp hij doet het' },
+  { src: '/images/reviews/review-whatsapp-3.webp', label: 'Afspeellijst toevoegen', quote: 'Werkt perfect' },
+  { src: '/images/reviews/review-whatsapp-4.webp', label: 'Werkt het? Ja.', quote: 'Ja het werkt.' },
+];
