@@ -16,6 +16,9 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 const ADS_ID = process.env.NEXT_PUBLIC_ADS_ID || '';
 const TAG_ID = GA_ID || ADS_ID;
 const GSC = process.env.NEXT_PUBLIC_GSC_VERIFICATION || '';
+// Google Tag Manager, conteneur envoyé par l'utilisateur le 13/11/2026. GA4 (et les balises Ads si besoin) se règlent DANS GTM :
+// ne pas remplir NEXT_PUBLIC_GA_ID dans Vercel pour ce site, sinon chaque visite est comptée deux fois.
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-P5K8J64D';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
@@ -57,6 +60,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
           try { if (localStorage.getItem('nldd_cookie_consent') === 'accepted') { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' }); } } catch (e) {}
         `}</Script>
+        {GTM_ID && (
+          // Google Tag Manager : chargé APRÈS le Consent Mode v2 ci-dessus (cookies refusés tant que le visiteur n'accepte pas).
+          <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}</Script>
+        )}
+        {GTM_ID && (
+          <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} title="Google Tag Manager" /></noscript>
+        )}
         {TAG_ID && (
           <>
             {/* Google tag (gtag.js) : GA4 si présent, et la balise Google Ads. Chargé après le Consent Mode v2 (tout refusé tant que le visiteur n'accepte pas). */}

@@ -43,8 +43,10 @@ export function WhatsAppTracking() {
       // Conversion Google Ads directe (si l'étiquette du nouveau compte est renseignée dans Vercel : NEXT_PUBLIC_ADS_WA_SEND_TO = AW-…/…)
       const sendTo = process.env.NEXT_PUBLIC_ADS_WA_SEND_TO;
       if (sendTo && typeof window.gtag === 'function') window.gtag('event', 'conversion', { send_to: sendTo });
-      if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', payload);
-      else (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_click', ...payload });
+      // Pour Google Tag Manager (GTM-P5K8J64D) : un vrai événement dataLayer, captable par un déclencheur « Événement personnalisé ».
+      (window.dataLayer = window.dataLayer || []).push({ event: 'whatsapp_click', wa_page: payload.page, wa_ref: payload.ref });
+      // GA4 en direct seulement si NEXT_PUBLIC_GA_ID est rempli (à laisser vide quand GA4 passe par GTM).
+      if (process.env.NEXT_PUBLIC_GA_ID && typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', payload);
 
       const code = sourceCode();
       if (code && !a.dataset.tagged) {
